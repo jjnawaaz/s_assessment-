@@ -64,6 +64,7 @@ Every routing decision includes a **clear explanation** describing *why* the cla
 
 ## 📂 Project Structure
 
+```
 src/
 ├── routes/
 │ └── upload.ts
@@ -98,6 +99,7 @@ src/
 │ # Allowed routing outcomes
 │
 └── index.ts
+```
 
 # Express server bootstrap
 
