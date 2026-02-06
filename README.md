@@ -103,8 +103,6 @@ src/
 
 # Express server bootstrap
 
----
-
 ## 🔄 Processing Flow (Step by Step)
 
 ### 1️⃣ File Upload
@@ -134,7 +132,6 @@ Example mandatory fields:
 policyInformation.policyNumber
 incidentInformation.date
 assetDetails.assetType
-
 ```
 
 
@@ -196,99 +193,91 @@ A human-readable explanation is generated describing **why** the route was chose
   "recommendedRoute": "Manual Review",
   "routingExplanation": "The claim was routed to Manual Review because mandatory fields are missing."
 }
-
 ```
 
-🚀 Getting Started
+🚀 Getting Started 
 1️⃣ Install Dependencies
 
 ```
 npm install
-
 ```
 
 2️⃣ Environment Variables
 Create a .env file:
 
 ```
-
 GROK_API_KEY=your_groq_api_key
 GROK_API_URL=https://api.groq.com/openai/v1
 LLM_MODEL=llama-3.3-70b-versatile
 PORT=3000
-
 ```
 3️⃣ Run the Server
 ```
 npm run dev
-
 ```
-4️⃣ Upload a File
+### 4️⃣ Upload a File
 
-URL: POST http://localhost:3000/api/upload
+- **URL:** `POST http://localhost:3000/api/upload`
+- **Body:** `form-data`
+  - **Key:** `file`
+  - **Type:** File (`PDF` / `TXT`)
 
-Body → form-data
+---
 
-Key: file
+## 🧪 Testing Scenarios
 
-Type: File (PDF / TXT)
+### ✅ Valid FNOL PDF
+- Structured fields extracted
+- Route: **Fast-track** or **Standard Processing**
 
-🧪 Testing Scenarios
-✅ Valid FNOL PDF
+### ⚠️ Incomplete / Non-FNOL PDF
+- Many fields → `null`
+- Route: **Manual Review**
 
-Structured fields extracted
+---
 
-Route: Fast-track or Standard Processing
+## 🧠 Design Rationale
 
-⚠️ Incomplete / Non-FNOL PDF
+### Why not let the LLM decide routing?
+LLMs are probabilistic and may hallucinate.  
+Routing must be **auditable, predictable, and safe**.
 
-Many fields → null
+---
 
-Route: Manual Review
+### Why Chain of Responsibility?
+- Ordered rules
+- First match wins
+- Easy to extend
+- Mirrors real insurance workflow engines
 
-🧠 Design Rationale
-Why not let the LLM decide routing?
+---
 
-LLMs are probabilistic and may hallucinate.
-Routing must be auditable, predictable, and safe.
-
-Why Chain of Responsibility?
-
-Ordered rules
-
-First match wins
-
-Easy to extend
-
-Mirrors real insurance workflow engines
-
-Why validate after extraction?
-
-Even a perfect LLM may receive incomplete documents.
+### Why validate after extraction?
+Even a perfect LLM may receive incomplete documents.  
 Validation ensures the system behaves safely under all inputs.
 
-📈 Possible Enhancements
+---
 
-Confidence scores per extracted field
+## 📈 Possible Enhancements
 
-OCR fallback for scanned PDFs
+- Confidence scores per extracted field
+- OCR fallback for scanned PDFs
+- Persistent storage (database)
+- Async processing with queues
+- UI dashboard for manual review
 
-Persistent storage (database)
+---
 
-Async processing with queues
+## ✅ Summary
 
-UI dashboard for manual review
+This project demonstrates a **real-world approach** to combining LLMs with traditional backend engineering:
 
-✅ Summary
+- **AI for understanding**
+- **Code for decisions**
+- **Clear, explainable outcomes**
 
-This project demonstrates a real-world approach to combining LLMs with traditional backend engineering:
+---
 
-AI for understanding
+## 👤 Author
 
-Code for decisions
-
-Clear, explainable outcomes
-
-👤 Author
-
-Built as part of the Synapsx Technical Assessment.
+Built as part of the **Synapsx Technical Assessment**.
