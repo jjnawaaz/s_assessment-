@@ -18,7 +18,7 @@ The system ingests FNOL documents (PDF/TXT), extracts structured claim data usin
 ---
 
 ## 🏗️ High-Level Architecture
-
+```
 Client Upload
 ↓
 Text Extraction (PDF / TXT)
@@ -30,7 +30,7 @@ Deterministic Validation
 Rule-Based Routing Engine
 ↓
 Human-Readable Explanation
-
+```
 
 ---
 
