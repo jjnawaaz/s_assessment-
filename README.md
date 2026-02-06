@@ -195,7 +195,7 @@ A human-readable explanation is generated describing **why** the route was chose
 }
 ```
 
-🚀 Getting Started 
+## 🚀 Getting Started 
 ### 1️⃣ Install Dependencies
 
 ```
@@ -211,7 +211,7 @@ GROK_API_URL=https://api.groq.com/openai/v1
 LLM_MODEL=llama-3.3-70b-versatile
 PORT=3000
 ```
-3️⃣ Run the Server
+### 3️⃣ Run the Server
 ```
 npm run dev
 ```
