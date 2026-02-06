@@ -101,7 +101,7 @@ src/
 └── index.ts
 ```
 
-# Express server bootstrap
+## Express server bootstrap
 
 ## 🔄 Processing Flow (Step by Step)
 
@@ -196,13 +196,13 @@ A human-readable explanation is generated describing **why** the route was chose
 ```
 
 🚀 Getting Started 
-1️⃣ Install Dependencies
+### 1️⃣ Install Dependencies
 
 ```
 npm install
 ```
 
-2️⃣ Environment Variables
+### 2️⃣ Environment Variables
 Create a .env file:
 
 ```
