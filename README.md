@@ -129,58 +129,58 @@ src/
   - `null` for missing fields
   - No hallucination
 
-Example schema:
-```ts
+Example mandatory fields:
+```
 policyInformation.policyNumber
 incidentInformation.date
 assetDetails.assetType
 
+```
 
-4️⃣ Validation (Deterministic)
+
+---
+
+### 4️⃣ Validation (Deterministic)
 
 Mandatory fields are checked in TypeScript.
 
 If a required field is:
+- `null`
+- empty
+- missing  
 
-null
+…it is added to `missingFields`.
 
-empty
+---
 
-missing
+### 5️⃣ Routing Engine
 
-…it is added to missingFields.
+Routing is implemented using a **Chain of Responsibility** pattern.
 
-5️⃣ Routing Engine
+Rules are evaluated **in order**:
 
-Routing is implemented using a Chain of Responsibility pattern.
+1. **Manual Review**
+   - Missing mandatory fields
+2. **Fast-track**
+   - Estimated damage < 25,000
+3. **Investigation Flag**
+   - Fraud indicators in description
+4. **Specialist Queue**
+   - Injury claims
+5. **Standard Processing**
+   - Default fallback
 
-Rules are evaluated in order:
+---
 
-Manual Review
+### 6️⃣ Explanation Layer
 
-Missing mandatory fields
+A human-readable explanation is generated describing **why** the route was chosen.
 
-Fast-track
+---
 
-Estimated damage < 25,000
+## 📤 Example API Response
 
-Investigation Flag
-
-Fraud indicators in description
-
-Specialist Queue
-
-Injury claims
-
-Standard Processing
-
-Default fallback
-
-6️⃣ Explanation Layer
-
-A human-readable explanation is generated describing why the route was chosen.
-
-📤 Example API Response
+```json
 {
   "extractedFields": {
     "policyInformation": {
@@ -199,22 +199,28 @@ A human-readable explanation is generated describing why the route was chosen.
 
 🚀 Getting Started
 1️⃣ Install Dependencies
+
+```
 npm install
 
-2️⃣ Environment Variables
+```
 
+2️⃣ Environment Variables
 Create a .env file:
+
+```
 
 GROK_API_KEY=your_groq_api_key
 GROK_API_URL=https://api.groq.com/openai/v1
 LLM_MODEL=llama-3.3-70b-versatile
 PORT=3000
 
-
+```
 3️⃣ Run the Server
+```
 npm run dev
 
-
+```
 4️⃣ Upload a File
 
 URL: POST http://localhost:3000/api/upload
@@ -224,7 +230,6 @@ Body → form-data
 Key: file
 
 Type: File (PDF / TXT)
-
 
 🧪 Testing Scenarios
 ✅ Valid FNOL PDF
@@ -238,7 +243,6 @@ Route: Fast-track or Standard Processing
 Many fields → null
 
 Route: Manual Review
-
 
 🧠 Design Rationale
 Why not let the LLM decide routing?
